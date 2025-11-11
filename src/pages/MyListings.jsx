@@ -8,7 +8,7 @@ const MyListings = () => {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Load user's cars
+  // Load user's cars
   useEffect(() => {
     if (user?.email) {
       fetch(`http://localhost:3000/api/myCars?email=${user.email}`)
@@ -24,7 +24,7 @@ const MyListings = () => {
     }
   }, [user]);
 
-  // ✅ Delete Car
+  //  Delete Car
   const handleDelete = async (id) => {
     const confirm = window.confirm("Are you sure you want to delete this car?");
     if (!confirm) return;

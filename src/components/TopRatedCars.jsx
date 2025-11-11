@@ -5,7 +5,7 @@ const TopRatedCars = () => {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    // Replace with your real API endpoint for top-rated cars
+    
     axios
       .get("http://localhost:3000/api/cars/top-rated") 
       .then((res) => setCars(res.data))
@@ -28,7 +28,7 @@ const TopRatedCars = () => {
               {/* Car Image */}
               <div className="h-48 overflow-hidden">
                 <img
-                  src={car.image}
+                  src={car.imageUrl}
                   alt={car.name}
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                 />
@@ -40,13 +40,13 @@ const TopRatedCars = () => {
                   {car.name}
                 </h3>
                 <p className="text-gray-600 text-sm mb-1">
-                  <span className="font-medium">Type:</span> {car.type}
+                  <span className="font-medium">Type:</span> {car.category}
                 </p>
                 <p className="text-gray-600 text-sm mb-1">
-                  <span className="font-medium">Provider:</span> {car.provider}
+                  <span className="font-medium">Provider:</span> {car.providerName}
                 </p>
                 <p className="text-gray-600 text-sm mb-3">
-                  <span className="font-medium">Rent:</span> ${car.price}/day
+                  <span className="font-medium">Rent:</span> ${car.rentPrice}/day
                 </p>
                 <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
                   View Details

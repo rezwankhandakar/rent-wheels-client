@@ -11,6 +11,7 @@ import PrivateRoute from "../components/PrivateRoute";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import UpdateCar from "../pages/UpdateCar";
+import CarDetails from "../pages/CarDetails";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +52,14 @@ export const router = createBrowserRouter([
         Component: () => (
           <PrivateRoute>
             <UpdateCar></UpdateCar>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "car-details/:id",
+        Component: () => (
+          <PrivateRoute>
+            <CarDetails></CarDetails>
           </PrivateRoute>
         ),
       }

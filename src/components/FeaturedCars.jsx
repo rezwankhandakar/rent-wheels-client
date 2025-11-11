@@ -29,7 +29,7 @@ const FeaturedCars = () => {
               {/* Car Image */}
               <div className="w-full h-40 sm:h-48 md:h-52 overflow-hidden relative">
                 <img
-                  src={car.image}
+                  src={car.imageUrl}
                   alt={car.name}
                   className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
                 />
@@ -41,13 +41,13 @@ const FeaturedCars = () => {
                   {car.name}
                 </h3>
                 <p className="text-gray-600 text-sm mb-0.5">
-                  <span className="font-medium">Rent:</span> ${car.price}/day
+                  <span className="font-medium">Rent:</span> ${car.rentPrice}/day
                 </p>
                 <p className="text-gray-600 text-sm mb-0.5">
-                  <span className="font-medium">Type:</span> {car.type}
+                  <span className="font-medium">Type:</span> {car.category}
                 </p>
                 <p className="text-gray-600 text-sm mb-2">
-                  <span className="font-medium">Provider:</span> {car.provider}
+                  <span className="font-medium">Provider:</span> {car.providerName}
                 </p>
                 <button className="w-full bg-blue-600 text-white text-sm py-1.5 rounded hover:bg-blue-700 transition">
                   View Details
