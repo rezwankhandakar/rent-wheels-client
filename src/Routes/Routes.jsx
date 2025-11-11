@@ -10,6 +10,7 @@ import MyBookings from "../pages/MyBookings";
 import PrivateRoute from "../components/PrivateRoute";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import UpdateCar from "../pages/UpdateCar";
 
 export const router = createBrowserRouter([
   {
@@ -45,6 +46,15 @@ export const router = createBrowserRouter([
       },
       { path: "login", Component: Login },
       { path: "register", Component: Register },
+       {
+        path: "update-car/:id",
+        Component: () => (
+          <PrivateRoute>
+            <UpdateCar></UpdateCar>
+          </PrivateRoute>
+        ),
+      }
+
     ],
   },
 ]);
