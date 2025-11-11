@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const TopRatedCars = () => {
   const [cars, setCars] = useState([]);
@@ -48,9 +49,10 @@ const TopRatedCars = () => {
                 <p className="text-gray-600 text-sm mb-3">
                   <span className="font-medium">Rent:</span> ${car.rentPrice}/day
                 </p>
-                <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                
+                <Link to={`/car-details/${car._id}`}><button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
                   View Details
-                </button>
+                </button></Link>
               </div>
             </div>
           ))}

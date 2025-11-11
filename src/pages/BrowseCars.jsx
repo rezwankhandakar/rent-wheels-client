@@ -38,12 +38,8 @@ const BrowseCars = () => {
             <p ><span className="font-medium">Rent: $</span>{car.rentPrice} / day</p>
             <p className="text-gray-500 text-sm mt-1"><span className="font-medium">Provider:</span> {car.providerName}</p>
 
-            <Link
-              to={`/cars/${car._id}`} // details page route
-              className="block mt-4 text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
-            >
-              View Details
-            </Link>
+            <Link to={`/car-details/${car._id}`} className="block mt-4 text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700">View Details</Link>
+
           </div>
         </div>
       ))}

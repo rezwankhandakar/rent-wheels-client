@@ -62,7 +62,15 @@ export const router = createBrowserRouter([
             <CarDetails></CarDetails>
           </PrivateRoute>
         ),
-      }
+      },
+      {
+        path: "my-bookings",
+        Component: () => (
+          <PrivateRoute>
+            <MyBookings></MyBookings>
+          </PrivateRoute>
+        ),
+      },
 
     ],
   },

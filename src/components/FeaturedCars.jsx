@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const FeaturedCars = () => {
   const [cars, setCars] = useState([]);
@@ -49,9 +50,11 @@ const FeaturedCars = () => {
                 <p className="text-gray-600 text-sm mb-2">
                   <span className="font-medium">Provider:</span> {car.providerName}
                 </p>
-                <button className="w-full bg-blue-600 text-white text-sm py-1.5 rounded hover:bg-blue-700 transition">
+                
+                <Link to={`/car-details/${car._id}`}><button className="w-full bg-blue-600 text-white text-sm py-1.5 rounded hover:bg-blue-700 transition">
                   View Details
-                </button>
+                </button></Link>
+                
               </div>
             </div>
           ))}
