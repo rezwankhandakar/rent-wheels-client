@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -6,9 +8,8 @@ const TopRatedCars = () => {
   const [cars, setCars] = useState([]);
 
   useEffect(() => {
-    
     axios
-      .get("http://localhost:3000/api/cars/top-rated") 
+      .get("http://localhost:3000/api/cars/top-rated")
       .then((res) => setCars(res.data))
       .catch((err) => console.log(err));
   }, []);
@@ -24,8 +25,19 @@ const TopRatedCars = () => {
           {cars.map((car) => (
             <div
               key={car._id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1"
+              className="relative bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1"
             >
+              {/* ✅ Status Badge */}
+              <span
+                className={`absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full ${
+                  car.status === "unavailable"
+                    ? "bg-red-100 text-red-700"
+                    : "bg-green-100 text-green-700"
+                }`}
+              >
+                {car.status === "unavailable" ? "Booked" : "Available"}
+              </span>
+
               {/* Car Image */}
               <div className="h-48 overflow-hidden">
                 <img
@@ -44,15 +56,18 @@ const TopRatedCars = () => {
                   <span className="font-medium">Type:</span> {car.category}
                 </p>
                 <p className="text-gray-600 text-sm mb-1">
-                  <span className="font-medium">Provider:</span> {car.providerName}
+                  <span className="font-medium">Provider:</span>{" "}
+                  {car.providerName}
                 </p>
                 <p className="text-gray-600 text-sm mb-3">
                   <span className="font-medium">Rent:</span> ${car.rentPrice}/day
                 </p>
-                
-                <Link to={`/car-details/${car._id}`}><button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
-                  View Details
-                </button></Link>
+
+                <Link to={`/car-details/${car._id}`}>
+                  <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition">
+                    View Details
+                  </button>
+                </Link>
               </div>
             </div>
           ))}
