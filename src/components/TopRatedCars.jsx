@@ -27,7 +27,7 @@ const TopRatedCars = () => {
               key={car._id}
               className="relative bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition transform hover:-translate-y-1"
             >
-              {/* ✅ Status Badge */}
+              {/*  Status Badge */}
               <span
                 className={`absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full ${
                   car.status === "unavailable"

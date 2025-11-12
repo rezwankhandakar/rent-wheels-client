@@ -1,10 +1,9 @@
 
 
-
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import toast from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 const UpdateCar = () => {
   const { id } = useParams();
@@ -13,7 +12,6 @@ const UpdateCar = () => {
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load existing car data
   useEffect(() => {
     fetch(`http://localhost:3000/api/cars/${id}`)
       .then((res) => res.json())
@@ -37,8 +35,9 @@ const UpdateCar = () => {
 
     try {
       const updatedCar = { ...car };
-      delete updatedCar._id; 
-      if (updatedCar.rentPrice) updatedCar.rentPrice = Number(updatedCar.rentPrice);
+      delete updatedCar._id;
+      if (updatedCar.rentPrice)
+        updatedCar.rentPrice = Number(updatedCar.rentPrice);
 
       const res = await fetch(`http://localhost:3000/api/cars/${id}`, {
         method: "PUT",
@@ -49,9 +48,9 @@ const UpdateCar = () => {
       const data = await res.json();
 
       if (data.modifiedCount || data.success) {
-        toast.success("Car updated successfully!");
+        toast.success("✅ Car updated successfully!");
 
-        // Clear form fields
+
         setCar({
           name: "",
           description: "",
@@ -63,24 +62,35 @@ const UpdateCar = () => {
           providerEmail: user?.email || "",
         });
 
-
-        setTimeout(() => navigate("/myListings"), 1000);
+    
+        setTimeout(() => navigate("/myListings"), 1200);
       } else {
-        toast.error(data.message || "Update failed");
+        toast.error(data.message || " Update failed");
       }
     } catch (err) {
-      toast.error("Server error");
+      toast.error(" Server error");
     }
   };
 
-  if (loading) return <p className="text-center mt-10">Loading...</p>;
-  if (!car) return <p className="text-center mt-10 text-red-600">Car not found</p>;
+  if (loading)
+    return <p className="text-center mt-10 text-gray-600">Loading...</p>;
+  if (!car)
+    return (
+      <p className="text-center mt-10 text-red-600 font-semibold">
+        Car not found
+      </p>
+    );
 
   return (
     <div className="max-w-3xl mx-auto mt-10 bg-white p-8 rounded-xl shadow-md">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Update Car</h2>
-      <form onSubmit={handleUpdate} className="space-y-4">
+      
+      <Toaster position="top-center" reverseOrder={false} />
 
+      <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+        Update Car
+      </h2>
+
+      <form onSubmit={handleUpdate} className="space-y-4">
         <div>
           <label>Car Name</label>
           <input
@@ -111,6 +121,7 @@ const UpdateCar = () => {
             onChange={handleChange}
             className="w-full border px-3 py-2 rounded"
           >
+            <option value="">Select Category</option>
             <option value="Sedan">Sedan</option>
             <option value="SUV">SUV</option>
             <option value="Hatchback">Hatchback</option>
@@ -175,7 +186,7 @@ const UpdateCar = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-4"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mt-4 transition-all"
         >
           Update Car
         </button>

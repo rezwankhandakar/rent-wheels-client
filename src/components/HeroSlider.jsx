@@ -47,7 +47,6 @@ const HeroSlider = () => {
     <Slider {...heroSettings}>
       {slides.map((slide) => (
         <div key={slide.id} className="relative w-full h-72 md:h-96">
-          {/* Background Image */}
           <div
             className="absolute inset-0 bg-cover bg-center"
             style={{
@@ -56,7 +55,6 @@ const HeroSlider = () => {
             }}
           ></div>
 
-          {/* Content */}
           <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
             <h2 className="text-white text-2xl md:text-4xl font-bold mb-2">
               {slide.title}

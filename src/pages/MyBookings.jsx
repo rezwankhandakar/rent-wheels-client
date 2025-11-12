@@ -1,17 +1,14 @@
 
-
-
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 const MyBookings = () => {
   const { user } = useAuth();
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Load bookings
   useEffect(() => {
     if (!user?.email) return;
 
@@ -22,12 +19,12 @@ const MyBookings = () => {
         setLoading(false);
       })
       .catch(() => {
-        toast.error("Failed to load bookings");
+        toast.error(" Failed to load bookings");
         setLoading(false);
       });
   }, [user]);
 
-  // Cancel booking
+
   const handleCancelBooking = async (bookingId) => {
     if (!window.confirm("Are you sure you want to cancel this booking?")) return;
 
@@ -35,25 +32,33 @@ const MyBookings = () => {
       const res = await fetch(`http://localhost:3000/api/bookings/${bookingId}`, {
         method: "DELETE",
       });
+
       const data = await res.json();
 
       if (data.success) {
-        toast.success("Booking cancelled successfully!");
-        setBookings(bookings.filter((b) => b._id !== bookingId));
+        toast.success(" Booking cancelled successfully!");
+        setBookings((prev) => prev.filter((b) => b._id !== bookingId));
       } else {
-        toast.error(data.message || "Failed to cancel booking");
+        toast.error(data.message || " Failed to cancel booking");
       }
     } catch {
-      toast.error("Server error");
+      toast.error(" Server error");
     }
   };
 
+  
   if (loading)
-    return <p className="text-center mt-10 text-gray-600">Loading...</p>;
+    return (
+      <div className="text-center mt-20 text-gray-600 text-lg">
+        Loading your bookings...
+      </div>
+    );
 
+  
   if (bookings.length === 0)
     return (
       <div className="text-center mt-20">
+        <Toaster position="top-center" reverseOrder={false} />
         <h2 className="text-xl font-semibold text-gray-700">
           No bookings found
         </h2>
@@ -61,8 +66,12 @@ const MyBookings = () => {
       </div>
     );
 
+  // ✅ Main Content
   return (
     <div className="max-w-6xl mx-auto p-6">
+      {/* Toast container */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
         My Bookings
       </h2>
@@ -73,7 +82,7 @@ const MyBookings = () => {
             key={booking._id}
             className="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition"
           >
-            {/* Status Badge */}
+            {/*  Status Badge */}
             <span
               className={`absolute top-3 right-3 px-3 py-1 text-xs font-semibold rounded-full ${
                 booking.status === "booked"
@@ -84,6 +93,7 @@ const MyBookings = () => {
               {booking.status === "booked" ? "Booked" : "Available"}
             </span>
 
+            {/*Car Image */}
             <div className="w-full h-44 overflow-hidden">
               <img
                 src={booking.imageUrl || "/placeholder-car.png"}
@@ -91,6 +101,8 @@ const MyBookings = () => {
                 className="w-full h-full object-cover"
               />
             </div>
+
+            {/* Details */}
             <div className="p-4">
               <h3 className="font-semibold text-lg mb-1">{booking.carName}</h3>
               <p className="text-sm text-gray-600 mb-1">
@@ -107,7 +119,7 @@ const MyBookings = () => {
                 {new Date(booking.date).toLocaleDateString()}
               </p>
 
-              {/* Buttons */}
+              {/*  Buttons */}
               <div className="flex gap-2">
                 <button
                   onClick={() => handleCancelBooking(booking._id)}
