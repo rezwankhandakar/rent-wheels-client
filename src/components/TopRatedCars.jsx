@@ -9,7 +9,7 @@ const TopRatedCars = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/cars/top-rated")
+      .get("https://rent-wheels-server-neon.vercel.app/api/cars/top-rated")
       .then((res) => setCars(res.data))
       .catch((err) => console.log(err));
   }, []);

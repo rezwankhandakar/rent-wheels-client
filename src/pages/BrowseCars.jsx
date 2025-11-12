@@ -9,7 +9,7 @@ const BrowseCars = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/cars")
+    fetch("https://rent-wheels-server-neon.vercel.app/api/cars")
       .then((res) => res.json())
       .then((data) => {
         setCars(data);

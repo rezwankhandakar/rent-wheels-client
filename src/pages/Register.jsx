@@ -1,10 +1,12 @@
 
 
+
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { toast } from "react-toastify";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Register = () => {
   const { register, googleLogin } = useAuth();
@@ -14,7 +16,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [photoURL, setPhotoURL] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
 
   const validatePassword = (password) =>
     /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/.test(password);
@@ -23,38 +25,47 @@ const Register = () => {
     e.preventDefault();
     if (!validatePassword(password)) {
       toast.error(
-        "Password must be at least 6 characters and contain 1 uppercase and 1 lowercase"
+        " Password must be at least 6 characters and contain 1 uppercase and 1 lowercase",
+        { position: "top-center" }
       );
       return;
     }
     try {
       await register(name, email, password, photoURL);
-      toast.success("Account created successfully!");
-      navigate("/");
+      toast.success(" Account created successfully!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, { position: "top-center" });
     }
   };
 
   const handleGoogleLogin = async () => {
     try {
       await googleLogin();
-      toast.success("Google login successful!");
-      navigate("/");
+      toast.success(" Google login successful!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, { position: "top-center" });
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
+     
+      <ToastContainer />
+
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">
           Register for RentWheels
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
           <input
             type="text"
             placeholder="Full Name"
@@ -63,8 +74,6 @@ const Register = () => {
             onChange={(e) => setName(e.target.value)}
             required
           />
-
-          {/* Email */}
           <input
             type="email"
             placeholder="Email"
@@ -73,8 +82,6 @@ const Register = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-
-          {/* Photo URL */}
           <input
             type="text"
             placeholder="Photo URL"
@@ -82,8 +89,6 @@ const Register = () => {
             value={photoURL}
             onChange={(e) => setPhotoURL(e.target.value)}
           />
-
-          {/* Password with toggle */}
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
@@ -105,24 +110,24 @@ const Register = () => {
             </span>
           </div>
 
-          {/* Register Button */}
-          <button className="w-full bg-blue-600 text-white py-2 rounded">
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          >
             Register
           </button>
         </form>
 
-        {/* Google Login */}
         <button
           onClick={handleGoogleLogin}
-          className="w-full bg-red-500 text-white py-2 rounded mt-4"
+          className="w-full bg-red-500 text-white py-2 rounded mt-4 hover:bg-red-600 transition"
         >
           Register with Google
         </button>
 
-        {/* Already Registered */}
         <p className="text-center mt-4">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600">
+          <Link to="/login" className="text-blue-600 font-semibold">
             Login
           </Link>
         </p>

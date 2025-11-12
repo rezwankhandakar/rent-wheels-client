@@ -13,7 +13,7 @@ const UpdateCar = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/cars/${id}`)
+    fetch(`https://rent-wheels-server-neon.vercel.app/api/cars/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setCar(data);
@@ -39,7 +39,7 @@ const UpdateCar = () => {
       if (updatedCar.rentPrice)
         updatedCar.rentPrice = Number(updatedCar.rentPrice);
 
-      const res = await fetch(`http://localhost:3000/api/cars/${id}`, {
+      const res = await fetch(`https://rent-wheels-server-neon.vercel.app/api/cars/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedCar),

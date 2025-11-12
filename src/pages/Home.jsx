@@ -12,7 +12,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/cars/featured")
+    axios.get("https://rent-wheels-server-neon.vercel.app/api/cars/featured")
       .then(res => setFeaturedCars(res.data))
       .catch(err => console.log(err))
       .finally(() => setLoading(false)); 

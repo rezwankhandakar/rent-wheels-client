@@ -33,7 +33,7 @@ const AddCar = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:3000/api/cars", {
+      const res = await fetch("https://rent-wheels-server-neon.vercel.app/api/cars", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newCar),

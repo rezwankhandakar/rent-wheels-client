@@ -12,7 +12,7 @@ const MyBookings = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/api/bookings?email=${user.email}`)
+    fetch(`https://rent-wheels-server-neon.vercel.app/api/bookings?email=${user.email}`)
       .then((res) => res.json())
       .then((data) => {
         setBookings(data);
@@ -29,7 +29,7 @@ const MyBookings = () => {
     if (!window.confirm("Are you sure you want to cancel this booking?")) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/bookings/${bookingId}`, {
+      const res = await fetch(`https://rent-wheels-server-neon.vercel.app/api/bookings/${bookingId}`, {
         method: "DELETE",
       });
 

@@ -13,7 +13,7 @@ const MyListings = () => {
   
   useEffect(() => {
     if (user?.email) {
-      fetch(`http://localhost:3000/api/myCars?email=${user.email}`)
+      fetch(`https://rent-wheels-server-neon.vercel.app/api/myCars?email=${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           setCars(data);
@@ -32,7 +32,7 @@ const MyListings = () => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/cars/${id}`, {
+      const res = await fetch(`https://rent-wheels-server-neon.vercel.app/api/cars/${id}`, {
         method: "DELETE",
       });
 

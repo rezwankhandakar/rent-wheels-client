@@ -1,12 +1,11 @@
 
 
-
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; 
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Login = () => {
   const { login, googleLogin } = useAuth();
@@ -14,31 +13,42 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await login(email, password);
-      toast.success("Login Successful!");
-      navigate("/");
+      toast.success(" Login Successful!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+      setTimeout(() => navigate("/"), 1500); 
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, { position: "top-center" });
     }
   };
 
+  
   const handleGoogleLogin = async () => {
     try {
       await googleLogin();
-      toast.success("Google Login Successful!");
-      navigate("/");
+      toast.success(" Google Login Successful!", {
+        position: "top-center",
+        autoClose: 2000,
+      });
+      setTimeout(() => navigate("/"), 1500);
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message, { position: "top-center" });
     }
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
+     
+      <ToastContainer />
+
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6 text-center">
           Login to RentWheels
@@ -78,7 +88,10 @@ const Login = () => {
           </div>
 
           {/* Submit */}
-          <button className="w-full bg-blue-600 text-white py-2 rounded">
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          >
             Login
           </button>
         </form>
@@ -86,7 +99,7 @@ const Login = () => {
         {/* Google Login */}
         <button
           onClick={handleGoogleLogin}
-          className="w-full bg-red-500 text-white py-2 rounded mt-4"
+          className="w-full bg-red-500 text-white py-2 rounded mt-4 hover:bg-red-600 transition"
         >
           Login with Google
         </button>
@@ -94,7 +107,7 @@ const Login = () => {
         {/* Register Link */}
         <p className="text-center mt-4">
           Don't have an account?{" "}
-          <Link to="/register" className="text-blue-600">
+          <Link to="/register" className="text-blue-600 font-semibold">
             Register
           </Link>
         </p>
@@ -104,5 +117,6 @@ const Login = () => {
 };
 
 export default Login;
+
 
 
